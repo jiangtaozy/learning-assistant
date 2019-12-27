@@ -17,21 +17,28 @@ class Camera extends StatefulWidget {
 
 }
 
-class CameraState extends State<Camera> {
+class CameraState extends State<Camera> with TickerProviderStateMixin {
 
   CameraController controller;
   Future<void> initializeControllerFuture;
   final orientationMap = {
-    NativeDeviceOrientation.portraitUp: 0,
-    NativeDeviceOrientation.portraitDown: 2,
-    NativeDeviceOrientation.landscapeLeft: 1,
-    NativeDeviceOrientation.landscapeRight: -1,
+    NativeDeviceOrientation.portraitUp: 0.0,
+    NativeDeviceOrientation.portraitDown: 0.5,
+    NativeDeviceOrientation.landscapeLeft: 0.25,
+    NativeDeviceOrientation.landscapeRight: -0.25,
   };
+  AnimationController animationController;
+  double rotationBegin = 0.0;
+  double rotationEnd = 0.0;
+  Stream<NativeDeviceOrientation> nativeDeviceOrientationListener;
+
 
   @override
   void initState() {
     super.initState();
     initCamera();
+    initAnimationController();
+    initNativeDeviceOrientation();
     SystemChrome.setEnabledSystemUIOverlays([]);
   }
 
@@ -43,9 +50,35 @@ class CameraState extends State<Camera> {
     initializeControllerFuture = controller.initialize();
   }
 
+  void initAnimationController() {
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(
+        milliseconds: 300,
+      ),
+    );
+  }
+
+  void initNativeDeviceOrientation() {
+    nativeDeviceOrientationListener = NativeDeviceOrientationCommunicator().onOrientationChanged(useSensor: true)
+      ..listen((NativeDeviceOrientation orientation) {
+        if(!mounted) {
+          return;
+        }
+        final rotation = orientationMap[orientation];
+        setState(() {
+          rotationBegin = rotationEnd;
+          rotationEnd = rotation;
+        });
+        animationController.reset();
+        animationController.forward();
+      });
+  }
+
   @override
   void dispose() {
     controller?.dispose();
+    animationController?.dispose();
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     super.dispose();
   }
@@ -65,19 +98,15 @@ class CameraState extends State<Camera> {
           }
         },
       ),
-      floatingActionButton: NativeDeviceOrientationReader(
-        useSensor: true,
-        builder: (context) {
-          NativeDeviceOrientation orientation = NativeDeviceOrientationReader.orientation(context);
-          final turns = orientationMap[orientation];
-          return FloatingActionButton(
-            child: RotatedBox(
-              quarterTurns: turns,
-              child: Icon(Icons.camera_alt),
-            ),
-            onPressed: () {},
-          );
-        },
+      floatingActionButton: FloatingActionButton(
+        child: RotationTransition(
+          turns: Tween<double>(
+            begin: rotationBegin,
+            end: rotationEnd,
+          ).animate(animationController),
+          child: Icon(Icons.camera_alt),
+        ),
+        onPressed: () {},
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
