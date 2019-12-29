@@ -9,6 +9,7 @@ import 'package:camera/camera.dart';
 import '../main.dart';
 import 'package:flutter/services.dart';
 import 'package:native_device_orientation/native_device_orientation.dart';
+import 'line.dart';
 
 class Camera extends StatefulWidget {
 
@@ -90,7 +91,12 @@ class CameraState extends State<Camera> with TickerProviderStateMixin {
         future: initializeControllerFuture,
         builder: (context, snapshop) {
           if(snapshop.connectionState == ConnectionState.done) {
-            return CameraPreview(controller);
+            return Stack(
+              children: <Widget>[
+                CameraPreview(controller),
+                Line(),
+              ],
+            );
           } else {
             return Center(
               child: CircularProgressIndicator(),
