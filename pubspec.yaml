@@ -25,6 +25,10 @@ dependencies:
   cupertino_icons: ^0.1.2
   camera:
   native_device_orientation:
+  path_provider:
+  image_crop:
+    git:
+      url: https://github.com/jiangtaozy/image_crop.git
 
 dev_dependencies:
   flutter_test:
