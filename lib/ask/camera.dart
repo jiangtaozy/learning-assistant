@@ -103,6 +103,15 @@ class CameraState extends State<Camera> with TickerProviderStateMixin {
         '${DateTime.now()}.png',
       );
       await cameraController.takePicture(path);
+      final deviceOrientationMap = {
+        NativeDeviceOrientation.portraitUp: DeviceOrientation.portraitUp,
+        NativeDeviceOrientation.portraitDown: DeviceOrientation.portraitDown,
+        NativeDeviceOrientation.landscapeLeft: DeviceOrientation.landscapeLeft,
+        NativeDeviceOrientation.landscapeRight: DeviceOrientation.landscapeRight,
+      };
+      SystemChrome.setPreferredOrientations([
+        deviceOrientationMap[imageOrientation] ?? DeviceOrientation.portraitUp,
+      ]);
       Navigator.push(
         context,
         MaterialPageRoute(

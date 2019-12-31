@@ -31,12 +31,6 @@ class CropImage extends StatefulWidget {
 class CropImageState extends State<CropImage> {
 
   final cropKey = GlobalKey<CropState>();
-  final orientationMap = {
-    NativeDeviceOrientation.portraitUp: DeviceOrientation.portraitUp,
-    NativeDeviceOrientation.portraitDown: DeviceOrientation.portraitDown,
-    NativeDeviceOrientation.landscapeLeft: DeviceOrientation.landscapeLeft,
-    NativeDeviceOrientation.landscapeRight: DeviceOrientation.landscapeRight,
-  };
   final defaultWidthMap = {
     NativeDeviceOrientation.portraitUp: 0.8,
     NativeDeviceOrientation.portraitDown: 0.8,
@@ -49,14 +43,6 @@ class CropImageState extends State<CropImage> {
     NativeDeviceOrientation.landscapeLeft: 4.0 / 1.0,
     NativeDeviceOrientation.landscapeRight: 4.0 / 1.0,
   };
-
-  @override
-  void initState() {
-    super.initState();
-    SystemChrome.setPreferredOrientations([
-      orientationMap[widget.imageOrientation] ?? DeviceOrientation.portraitUp,
-    ]);
-  }
 
   @override
   dispose(){

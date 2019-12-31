@@ -25,7 +25,6 @@ class CroppedImageState extends State<CroppedImage> {
 
   @override
   Widget build(BuildContext context) {
-    print('widget.imageFile: ${widget.imageFile}');
     return Scaffold(
       appBar: AppBar(
         title: Text('小福学习助手'),
