@@ -90,7 +90,7 @@ class CropImageState extends State<CropImage> {
       body: OrientationBuilder(
         builder: (context, orientation) {
           return Container(
-            color: Color(Black1),
+            color: Color(CustomColors.Black1),
             child: Flex(
               direction: orientation == Orientation.portrait ? Axis.vertical : Axis.horizontal,
               children: <Widget>[

@@ -29,6 +29,8 @@ dependencies:
   image_crop:
     git:
       url: https://github.com/jiangtaozy/image_crop.git
+  http:
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:

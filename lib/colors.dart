@@ -4,4 +4,7 @@
  * Colors
  */
 
-const Black1 = 0xff111111;
+class CustomColors {
+  static const int Black1 = 0xff111111;
+  static const int LamTinBlue = 0xff22b6ed;
+}
