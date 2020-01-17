@@ -5,8 +5,9 @@
  */
 
 import 'package:flutter/material.dart';
-import 'login.dart';
 import '../colors.dart';
+import 'login.dart';
+import 'register.dart';
 
 class My extends StatefulWidget {
 
@@ -19,19 +20,36 @@ class MyState extends State<My> {
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
-      color: Color(CustomColors.LamTinBlue),
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return Login();
-            },
-          ),
-        );
-      },
-      child: Text('登录'),
+    return Row(
+      children: <Widget>[
+        RaisedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return Register();
+                },
+              ),
+            );
+          },
+          child: Text('注册'),
+        ),
+        RaisedButton(
+          color: Color(CustomColors.LamTinBlue),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return Login();
+                },
+              ),
+            );
+          },
+          child: Text('登录'),
+        ),
+      ],
     );
   }
 

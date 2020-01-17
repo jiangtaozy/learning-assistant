@@ -7,11 +7,12 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 import '../config.dart';
 import '../colors.dart';
 import '../util/loading.dart';
 import '../util/alert.dart';
+import 'dart:convert';
+import 'register.dart';
 
 class Login extends StatefulWidget {
 
@@ -80,7 +81,7 @@ class LoginState extends State<Login> {
           final prefs = await SharedPreferences.getInstance();
           prefs.setString('token', token);
         }
-        Aleart.show(
+        Alert.show(
           message: message,
           context: context,
         );
@@ -91,7 +92,7 @@ class LoginState extends State<Login> {
     catch(error) {
       print('error: $error');
       Loading.dismiss(context);
-      Aleart.show(
+      Alert.show(
         message: '网络出错了',
         context: context,
       );
@@ -189,14 +190,12 @@ class LoginState extends State<Login> {
                 ),
                 child: FlatButton(
                   onPressed: () {
-                    /*
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => Register()
                       ),
                     );
-                    */
                   },
                   child: Text('注册'),
                 ),

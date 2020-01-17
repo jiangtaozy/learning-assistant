@@ -1,13 +1,13 @@
 /*
  * Maintained by jemo from 2020.1.17 to now
  * Created by jemo on 2020.1.17 11:34:09
- * Aleart
+ * Alert
  */
 
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-class Aleart {
+class Alert {
 
   static show({message, context}) {
     showDialog(
