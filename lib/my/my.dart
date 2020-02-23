@@ -22,18 +22,21 @@ class MyState extends State<My> {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        RaisedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return Register();
-                },
-              ),
-            );
-          },
-          child: Text('注册'),
+        Container(
+          margin: EdgeInsets.all(10),
+          child: RaisedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return Register();
+                  },
+                ),
+              );
+            },
+            child: Text('注册'),
+          ),
         ),
         RaisedButton(
           color: Color(CustomColors.LamTinBlue),
